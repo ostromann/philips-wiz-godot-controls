@@ -4,6 +4,10 @@ extends Node
 
 var ncat_path = "C:/Program Files (x86)/Nmap/ncat.exe"
 var queuedColor
+var ips = [
+	"192.168.0.47",
+	"192.168.0.48",
+]
 
 @onready var AUTO_KILL_PROCESS = preload("res://AutoKillProcess.tscn")
 @onready var BULB = preload("res://Bulb.tscn")
@@ -26,6 +30,7 @@ func create_auto_kill_process(command, arguments):
 
 func set_light_off(ip: String = "192.168.0.47"):
 	create_auto_kill_process('send_light_off_command.bat', [ip])
+	queuedColor = null
 	
 func set_light_on(ip: String = "192.168.0.47"):
 	create_auto_kill_process('send_light_on_command.bat', [ip])
@@ -40,18 +45,22 @@ func set_light_rgb(ip: String = "192.168.0.47", red: int = 255, green: int = 255
 	$ColorUpdateCooldown.start()
 
 func set_color(color):
-	$ColorRect.color = color
-	set_light_rgb("192.168.0.47", int(color.r*255), int(color.g*255), int(color.b*255), 75)
+	$BackgroundColorRect.color = color
+	for ip in ips:
+		set_light_rgb(ip, int(color.r*255), int(color.g*255), int(color.b*255), 75)
 	queuedColor = null
 	
 func _on_turn_on_button_pressed() -> void:
-	set_light_on()
+	for ip in ips:
+		set_light_on(ip)
 	
 func _on_turn_off_button_pressed() -> void:
-	set_light_off()
+	for ip in ips:
+		set_light_off(ip)
 
 func _on_color_picker_button_color_changed(color: Color) -> void:	
 	queuedColor = color
+	$QueuedColorRect.color = color
 
 func _on_color_update_cooldown_timeout() -> void:
 	if queuedColor:

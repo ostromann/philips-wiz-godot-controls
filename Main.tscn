@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://b77pr8rkaljg0"]
+[gd_scene load_steps=4 format=3 uid="uid://b77pr8rkaljg0"]
 
 [ext_resource type="Script" path="res://LightController.gd" id="1_yuxyr"]
 [ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://Bulb.tscn" id="2_nkfvf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pj626"]
+font_size = 22
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.670588)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -12,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yuxyr")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
@@ -77,6 +84,21 @@ autostart = true
 [node name="Bulbs" type="Node" parent="."]
 
 [node name="Bulb" parent="Bulbs" instance=ExtResource("2_nkfvf")]
+
+[node name="QueuedColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 432.0
+offset_right = 616.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="QueuedColorRect"]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 40.0
+text = "Queue"
+label_settings = SubResource("LabelSettings_pj626")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="DiscoverButton" to="." method="_on_discover_button_pressed"]
 [connection signal="pressed" from="TurnOnButton" to="." method="_on_turn_on_button_pressed"]

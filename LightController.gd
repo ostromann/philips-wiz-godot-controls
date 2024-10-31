@@ -1,12 +1,11 @@
 extends Node
 
-
-
-var ncat_path = "C:/Program Files (x86)/Nmap/ncat.exe"
 var queuedColor
 var ips = [
-	"192.168.0.47",
-	"192.168.0.48",
+	"192.168.0.38", # kitchen 2
+	"192.168.0.41", # kitchen 1
+	"192.168.0.47", # bar 1
+	"192.168.0.48", # bar 2
 ]
 
 @onready var AUTO_KILL_PROCESS = preload("res://AutoKillProcess.tscn")
@@ -14,7 +13,6 @@ var ips = [
 
 func _ready():
 	pass
-
 
 # Example: you can trigger these functions from UI buttons or other events
 func _process(delta: float):

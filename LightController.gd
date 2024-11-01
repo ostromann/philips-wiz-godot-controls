@@ -54,27 +54,25 @@ func _process(delta: float):
 	
 	
 	$PidList.clear()
-	for process in $Processes.get_children():
-		$PidList.add_item(str(process.pid))
+	for bulb in $Bulbs.get_children():
+		for process in bulb.find_child("Processes").get_children():
+			$PidList.add_item(str(process.pid))
 
 
 
 func set_color(color):
 	$BackgroundColorRect.color = color
 	for bulb in $Bulbs.get_children():
-		var process = bulb.set_light_rgb(color)
-		$Processes.add_child(process)
+		bulb.set_light_rgb(color)
 	$ColorUpdateCooldown.start()
 	
 func _on_turn_on_button_pressed() -> void:
 	for bulb in $Bulbs.get_children():
-		var process = bulb.set_light_on()
-		$Processes.add_child(process)
+		bulb.set_light_on()
 	
 func _on_turn_off_button_pressed() -> void:
 	for bulb in $Bulbs.get_children():
-		var process = bulb.set_light_off()
-		$Processes.add_child(process)
+		bulb.set_light_off()
 
 func _on_color_picker_button_color_changed(color: Color) -> void:	
 	queuedColor = color
@@ -82,8 +80,7 @@ func _on_color_picker_button_color_changed(color: Color) -> void:
 
 func _on_color_update_cooldown_timeout() -> void:
 	for bulb in $Bulbs.get_children():
-		var process = bulb.set_light_rgb(bulb.find_child("NextColorPolygon").color)
-		$Processes.add_child(process)
+		bulb.set_light_rgb(bulb.find_child("NextColorPolygon").color)
 		
 	#if queuedColor:
 		#set_color(queuedColor)

@@ -112,7 +112,7 @@ offset_right = 172.0
 offset_bottom = 177.0
 
 [node name="ColorUpdateCooldown" type="Timer" parent="."]
-wait_time = 0.9
+wait_time = 1.2
 autostart = true
 
 [node name="Processes" type="Node" parent="."]
@@ -168,6 +168,13 @@ offset_bottom = 40.0
 
 [node name="Grid" type="Node2D" parent="."]
 script = ExtResource("3_3nfdt")
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 16.0
+max_value = 255.0
+value = 255.0
 
 [connection signal="pressed" from="DiscoverButton" to="." method="_on_discover_button_pressed"]
 [connection signal="pressed" from="TurnOnButton" to="." method="_on_turn_on_button_pressed"]

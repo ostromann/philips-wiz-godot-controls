@@ -21,7 +21,7 @@ func set_light_on() -> Node:
 
 func set_light_rgb(color : Color) -> Node:
 	print("Setting light rgb ", IPAdress)
-	var dimming = clamp(color.a * 89, 1, 89) + 10
+	var dimming = clamp(color.a * 99, 80, 99)
 	var red = clamp(color.r * 255, 0, 255)
 	var green = clamp(color.g * 255, 0, 255)
 	var blue = clamp(color.b * 255, 0, 255)

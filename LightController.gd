@@ -17,9 +17,15 @@ var ips = [
 @export var noisemap_g : FastNoiseLite
 @export var noisemap_b : FastNoiseLite
 
+@export var influence_r : FastNoiseLite
+@export var influence_g : FastNoiseLite
+@export var influence_b : FastNoiseLite
+
+
 var time : float = 0.0
 
 func _ready():
+	
 	pass
 
 # Example: you can trigger these functions from UI buttons or other events
@@ -32,10 +38,17 @@ func _process(delta: float):
 		var x = bulb.position.x
 		var y = bulb.position.y
 		var z = self.time
-		new_color.r = (noisemap_r.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.r
-		new_color.g = (noisemap_g.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.g
-		new_color.b = (noisemap_b.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.b
+		
+		var influence_r_value = (influence_r.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.r
+		var influence_g_value = (influence_g.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.g
+		var influence_b_value = (influence_b.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.b
+		
+		
+		new_color.r = (noisemap_r.get_noise_3d(x, y, z) + 1) / 2 * amplitude * influence_r_value
+		new_color.g = (noisemap_g.get_noise_3d(x, y, z) + 1) / 2 * amplitude * influence_g_value
+		new_color.b = (noisemap_b.get_noise_3d(x, y, z) + 1) / 2 * amplitude * influence_b_value
 		new_color.a = (noisemap_dimming.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.a
+		new_color.a = clamp(new_color.a, 0.99, 1.0)
 		bulb.find_child("NextColorPolygon").color = new_color
 		
 	

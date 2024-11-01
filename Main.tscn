@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b77pr8rkaljg0"]
+[gd_scene load_steps=12 format=3 uid="uid://b77pr8rkaljg0"]
 
 [ext_resource type="Script" path="res://LightController.gd" id="1_yuxyr"]
 [ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://Bulb.tscn" id="2_nkfvf"]
+[ext_resource type="Script" path="res://grid.gd" id="3_3nfdt"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_c2yn6"]
 noise_type = 3
@@ -16,6 +17,18 @@ seed = 2
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_feyds"]
 noise_type = 3
 seed = 3
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xfw5c"]
+noise_type = 3
+seed = 5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cximu"]
+noise_type = 3
+seed = 6
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8e4he"]
+noise_type = 3
+seed = 7
 
 [sub_resource type="LabelSettings" id="LabelSettings_pj626"]
 font_size = 22
@@ -37,6 +50,9 @@ noisemap_dimming = SubResource("FastNoiseLite_c2yn6")
 noisemap_r = SubResource("FastNoiseLite_oym3m")
 noisemap_g = SubResource("FastNoiseLite_puaxi")
 noisemap_b = SubResource("FastNoiseLite_feyds")
+influence_r = SubResource("FastNoiseLite_xfw5c")
+influence_g = SubResource("FastNoiseLite_cximu")
+influence_b = SubResource("FastNoiseLite_8e4he")
 
 [node name="BackgroundColorRect" type="ColorRect" parent="."]
 layout_mode = 0
@@ -96,7 +112,7 @@ offset_right = 172.0
 offset_bottom = 177.0
 
 [node name="ColorUpdateCooldown" type="Timer" parent="."]
-wait_time = 0.7
+wait_time = 0.9
 autostart = true
 
 [node name="Processes" type="Node" parent="."]
@@ -149,6 +165,9 @@ vertical_alignment = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Grid" type="Node2D" parent="."]
+script = ExtResource("3_3nfdt")
 
 [connection signal="pressed" from="DiscoverButton" to="." method="_on_discover_button_pressed"]
 [connection signal="pressed" from="TurnOnButton" to="." method="_on_turn_on_button_pressed"]

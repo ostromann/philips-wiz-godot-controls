@@ -19,12 +19,13 @@ func set_light_on() -> Node:
 	$ColorPolygon.color = Color.WHITE
 	return process
 
-func set_light_rgb(color : Color, dimming: int = 75) -> Node:
+func set_light_rgb(color : Color) -> Node:
 	print("Setting light rgb ", IPAdress)
-	dimming = clamp(dimming, 11, 99)
+	var dimming = clamp(color.a * 89, 1, 89) + 10
 	var red = clamp(color.r * 255, 0, 255)
 	var green = clamp(color.g * 255, 0, 255)
 	var blue = clamp(color.b * 255, 0, 255)
+	
 	
 	var process = create_auto_kill_process('send_light_command.bat', [red, green, blue, dimming, IPAdress])
 	$ColorPolygon.color = color

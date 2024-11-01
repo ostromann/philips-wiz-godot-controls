@@ -1,10 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://b77pr8rkaljg0"]
+[gd_scene load_steps=8 format=3 uid="uid://b77pr8rkaljg0"]
 
 [ext_resource type="Script" path="res://LightController.gd" id="1_yuxyr"]
 [ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://Bulb.tscn" id="2_nkfvf"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_c2yn6"]
 noise_type = 3
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oym3m"]
+noise_type = 3
+seed = 1
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_puaxi"]
+seed = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_feyds"]
+noise_type = 3
+seed = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_pj626"]
 font_size = 22
@@ -21,7 +32,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yuxyr")
+speed = 3.2
 noisemap_dimming = SubResource("FastNoiseLite_c2yn6")
+noisemap_r = SubResource("FastNoiseLite_oym3m")
+noisemap_g = SubResource("FastNoiseLite_puaxi")
+noisemap_b = SubResource("FastNoiseLite_feyds")
 
 [node name="BackgroundColorRect" type="ColorRect" parent="."]
 layout_mode = 0
@@ -81,18 +96,39 @@ offset_right = 172.0
 offset_bottom = 177.0
 
 [node name="ColorUpdateCooldown" type="Timer" parent="."]
+wait_time = 0.7
 autostart = true
 
 [node name="Processes" type="Node" parent="."]
 
 [node name="Bulbs" type="Node" parent="."]
 
-[node name="Bulb" parent="Bulbs" instance=ExtResource("2_nkfvf")]
+[node name="Bar1" parent="Bulbs" instance=ExtResource("2_nkfvf")]
 position = Vector2(840, 96)
 
-[node name="Bulb2" parent="Bulbs" instance=ExtResource("2_nkfvf")]
-position = Vector2(992, 416)
+[node name="Bar2" parent="Bulbs" instance=ExtResource("2_nkfvf")]
+position = Vector2(904, 112)
 IPAdress = "192.168.0.48"
+
+[node name="ÖkensandBottom" parent="Bulbs" instance=ExtResource("2_nkfvf")]
+position = Vector2(680, 448)
+IPAdress = "192.168.0.40"
+
+[node name="ÖkensandMiddle" parent="Bulbs" instance=ExtResource("2_nkfvf")]
+position = Vector2(816, 400)
+IPAdress = "192.168.0.39"
+
+[node name="ÖkensandTop" parent="Bulbs" instance=ExtResource("2_nkfvf")]
+position = Vector2(904, 336)
+IPAdress = "192.168.0.37"
+
+[node name="Window1" parent="Bulbs" instance=ExtResource("2_nkfvf")]
+position = Vector2(720, 176)
+IPAdress = "192.168.0.45"
+
+[node name="Window2" parent="Bulbs" instance=ExtResource("2_nkfvf")]
+position = Vector2(632, 256)
+IPAdress = "192.168.0.46"
 
 [node name="QueuedColorRect" type="ColorRect" parent="."]
 layout_mode = 0
@@ -108,6 +144,11 @@ text = "Queue"
 label_settings = SubResource("LabelSettings_pj626")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="pressed" from="DiscoverButton" to="." method="_on_discover_button_pressed"]
 [connection signal="pressed" from="TurnOnButton" to="." method="_on_turn_on_button_pressed"]

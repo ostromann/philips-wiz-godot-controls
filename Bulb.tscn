@@ -6,6 +6,9 @@
 [node name="Bulb" type="Node2D"]
 script = ExtResource("1_oyxeb")
 
+[node name="NextColorPolygon" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, -55, -20, -51, -39, -31, -39, -10, -32, 12, -20, 31, -16, 54, 2, 57, 15, 53, 19, 34, 28, 11, 34, -3, 39, -15, 35, -37, 16, -53, -1, -56)
+
 [node name="ColorPolygon" type="Polygon2D" parent="."]
 position = Vector2(-16, -32)
 scale = Vector2(0.2, 0.2)

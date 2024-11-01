@@ -8,57 +8,58 @@ var ips = [
 	"192.168.0.48", # bar 2
 ]
 
-@onready var AUTO_KILL_PROCESS = preload("res://AutoKillProcess.tscn")
 @onready var BULB = preload("res://Bulb.tscn")
+
+@export var amplitude : float = 5.0
+@export var speed : float = 0.2
+@export var noisemap_dimming : FastNoiseLite
+#@export var noisemap_r : FastNoiseLite
+#@export var noisemap_g : FastNoiseLite
+#@export var noisemap_b : FastNoiseLite
+
+var time : float = 0.0
 
 func _ready():
 	pass
 
 # Example: you can trigger these functions from UI buttons or other events
 func _process(delta: float):
+	#self.time += self.speed
+	#var perlin_value = noisemap_dimming.get_noise_2d(self.time, 0.0)
+	##print(perlin_value + 1)
+	#var new_color = $BackgroundColorRect.color
+	#new_color.a = perlin_value * amplitude
+	#$BackgroundColorRect.color = new_color
+	
+	
 	$PidList.clear()
 	for process in $Processes.get_children():
 		$PidList.add_item(str(process.pid))
 
-func create_auto_kill_process(command, arguments):
-	var pid = OS.create_process(command, arguments)
-	var process = AUTO_KILL_PROCESS.instantiate()
-	process.pid = pid
-	$Processes.add_child(process)
 
-func set_light_off(ip: String = "192.168.0.47"):
-	create_auto_kill_process('send_light_off_command.bat', [ip])
-	queuedColor = null
-	
-func set_light_on(ip: String = "192.168.0.47"):
-	create_auto_kill_process('send_light_on_command.bat', [ip])
-
-func set_light_rgb(ip: String = "192.168.0.47", red: int = 255, green: int = 255, blue: int = 255, dimming: int = 75) -> void:
-	dimming = clamp(dimming, 11, 99)
-	red = clamp(red, 0, 255)
-	green = clamp(green, 0, 255)
-	blue = clamp(blue, 0, 255)
-	
-	create_auto_kill_process('send_light_command.bat', [red, green, blue, dimming, ip])
-	$ColorUpdateCooldown.start()
 
 func set_color(color):
 	$BackgroundColorRect.color = color
-	for ip in ips:
-		set_light_rgb(ip, int(color.r*255), int(color.g*255), int(color.b*255), 75)
+	for bulb in $Bulbs.get_children():
+		var process = bulb.set_light_rgb(color, 75)
+		$Processes.add_child(process)
+	$ColorUpdateCooldown.start()
 	queuedColor = null
 	
 func _on_turn_on_button_pressed() -> void:
-	for ip in ips:
-		set_light_on(ip)
+	for bulb in $Bulbs.get_children():
+		var process = bulb.set_light_on()
+		$Processes.add_child(process)
 	
 func _on_turn_off_button_pressed() -> void:
-	for ip in ips:
-		set_light_off(ip)
+	for bulb in $Bulbs.get_children():
+		var process = bulb.set_light_off()
+		$Processes.add_child(process)
+	queuedColor = null
 
 func _on_color_picker_button_color_changed(color: Color) -> void:	
 	queuedColor = color
-	$QueuedColorRect.color = color
+	#$QueuedColorRect.color = color
 
 func _on_color_update_cooldown_timeout() -> void:
 	if queuedColor:

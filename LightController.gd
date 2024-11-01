@@ -85,3 +85,8 @@ func _on_color_update_cooldown_timeout() -> void:
 	#if queuedColor:
 		#set_color(queuedColor)
 		
+
+
+func _on_speed_slider_drag_ended(value_changed: bool) -> void:
+	print("Setting speed to ", value_changed)
+	speed = value_changed

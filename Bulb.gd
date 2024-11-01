@@ -25,7 +25,6 @@ func set_light_on():
 	$ColorPolygon.color = Color.WHITE
 
 func set_light_rgb(color : Color):
-	print("Setting light rgb ", IPAdress)
 	var dimming = clamp(color.a * 99, 80, 99)
 	var red = clamp(color.r * 255, 0, 255)
 	var green = clamp(color.g * 255, 0, 255)

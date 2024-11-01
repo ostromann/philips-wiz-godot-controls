@@ -112,7 +112,6 @@ offset_right = 172.0
 offset_bottom = 177.0
 
 [node name="ColorUpdateCooldown" type="Timer" parent="."]
-wait_time = 1.2
 autostart = true
 
 [node name="Processes" type="Node" parent="."]
@@ -169,15 +168,19 @@ offset_bottom = 40.0
 [node name="Grid" type="Node2D" parent="."]
 script = ExtResource("3_3nfdt")
 
-[node name="HSlider" type="HSlider" parent="."]
+[node name="SpeedSlider" type="HSlider" parent="."]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 16.0
-max_value = 255.0
-value = 255.0
+offset_left = 400.0
+offset_top = 536.0
+offset_right = 632.0
+offset_bottom = 552.0
+max_value = 1.0
+step = 0.05
+value = 0.2
 
 [connection signal="pressed" from="DiscoverButton" to="." method="_on_discover_button_pressed"]
 [connection signal="pressed" from="TurnOnButton" to="." method="_on_turn_on_button_pressed"]
 [connection signal="pressed" from="TurnOffButton" to="." method="_on_turn_off_button_pressed"]
 [connection signal="color_changed" from="ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
 [connection signal="timeout" from="ColorUpdateCooldown" to="." method="_on_color_update_cooldown_timeout"]
+[connection signal="drag_ended" from="SpeedSlider" to="." method="_on_speed_slider_drag_ended"]

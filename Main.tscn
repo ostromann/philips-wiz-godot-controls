@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://b77pr8rkaljg0"]
+[gd_scene load_steps=11 format=3 uid="uid://b77pr8rkaljg0"]
 
 [ext_resource type="Script" path="res://LightController.gd" id="1_yuxyr"]
 [ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://Bulb.tscn" id="2_nkfvf"]
-[ext_resource type="Script" path="res://grid.gd" id="3_3nfdt"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_c2yn6"]
 noise_type = 3
@@ -109,8 +108,6 @@ offset_bottom = 204.0
 [node name="ColorUpdateCooldown" type="Timer" parent="."]
 autostart = true
 
-[node name="Processes" type="Node" parent="."]
-
 [node name="Bulbs" type="Node2D" parent="."]
 
 [node name="Bar1" parent="Bulbs" instance=ExtResource("2_nkfvf")]
@@ -160,9 +157,6 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Grid" type="Node2D" parent="."]
-script = ExtResource("3_3nfdt")
-
 [node name="SpeedSlider" type="HSlider" parent="."]
 layout_mode = 0
 offset_left = 400.0
@@ -173,9 +167,7 @@ max_value = 1.0
 step = 0.05
 value = 0.2
 
-[connection signal="pressed" from="DiscoverButton" to="." method="_on_discover_button_pressed"]
 [connection signal="pressed" from="TurnOnButton" to="." method="_on_turn_on_button_pressed"]
 [connection signal="pressed" from="TurnOffButton" to="." method="_on_turn_off_button_pressed"]
 [connection signal="color_changed" from="ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
-[connection signal="timeout" from="ColorUpdateCooldown" to="." method="_on_color_update_cooldown_timeout"]
 [connection signal="drag_ended" from="SpeedSlider" to="." method="_on_speed_slider_drag_ended"]

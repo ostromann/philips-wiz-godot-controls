@@ -1,10 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhqkbmxenyp6a"]
+[gd_scene load_steps=5 format=3 uid="uid://dhqkbmxenyp6a"]
 
 [ext_resource type="Script" path="res://Bulb.gd" id="1_oyxeb"]
 [ext_resource type="Texture2D" uid="uid://ceutnx175nnnq" path="res://Assets/lighting-bulb.png" id="2_8hhnv"]
-[ext_resource type="Script" path="res://server_node.gd" id="3_6udyc"]
 
-[node name="Bulb" type="Node2D"]
+[sub_resource type="GDScript" id="GDScript_jw573"]
+script/source = "# server_node.gd
+class_name ServerNode
+extends Node
+
+var server := UDPServer.new()
+var peers = []
+
+func _ready():
+	server.listen(38899)
+
+func _process(delta):
+	server.poll() # Important!
+	if server.is_connection_available():
+		var peer: PacketPeerUDP = server.take_connection()
+		var packet = peer.get_packet()
+		print(\"Accepted peer: %s:%s\" % [peer.get_packet_ip(), peer.get_packet_port()])
+		print(\"Received data: %s\" % [packet.get_string_from_utf8()])
+		# Reply so it knows we received the message.
+		peer.put_packet(packet)
+		# Keep a reference so we can keep contacting the remote peer.
+		peers.append(peer)
+
+	for i in range(0, peers.size()):
+		pass # Do something with the connected peers.
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ce7qd"]
+radius = 34.0
+height = 102.0
+
+[node name="Bulb" type="CharacterBody2D"]
+input_pickable = true
+motion_mode = 1
 script = ExtResource("1_oyxeb")
 
 [node name="NextColorPolygon" type="Polygon2D" parent="."]
@@ -21,6 +53,11 @@ texture = ExtResource("2_8hhnv")
 
 [node name="ColorUpdateCooldown" type="Timer" parent="."]
 autostart = true
-script = ExtResource("3_6udyc")
+script = SubResource("GDScript_jw573")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ce7qd")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="toggle_drag" from="." to="." method="_on_toggle_drag"]
 [connection signal="timeout" from="ColorUpdateCooldown" to="." method="_on_color_update_cooldown_timeout"]

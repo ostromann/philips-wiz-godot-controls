@@ -1,4 +1,4 @@
-extends Node
+extends CharacterBody2D
 
 @export var IPAdress : String = "192.168.0.47"
 var port : int = 38899
@@ -7,6 +7,9 @@ var port : int = 38899
 var current_color : Color
 var light_on : bool
 var packet_peer = PacketPeerUDP.new()
+
+var is_dragging : bool = false
+signal toggle_drag;
 
 func _ready() -> void:
 	packet_peer.connect_to_host(IPAdress, port)
@@ -19,13 +22,16 @@ func _process(delta: float) -> void:
 		if received_data:
 			if received_data.method == "getPilot":
 				current_color = get_color(received_data.result)
-				print(received_data)
-				print(current_color)
 				$ColorPolygon.color = current_color
+	
+	if is_dragging:
+		self.position = get_viewport().get_mouse_position()
 
+func _toggle_drag():
+	print("toggle dragging")
+	
 func get_color(data : Dictionary) -> Color:
 	if data.has("r") and data.has("g") and data.has("b") and data.has("dimming"):
-		print("Setting color")
 		return Color(data.r / 255, data.g / 255, data.b /255, dimming_to_value(data.dimming) / 255)
 	return Color.BLACK
 	
@@ -56,12 +62,12 @@ func send_command_get_state():
 	packet_peer.put_packet(command.to_ascii_buffer())
 
 func send_command_light_off():
-	print(IPAdress, " light off")
+	#print(IPAdress, " light off")
 	var command = '{"id":1,"method":"setState","params":{"state":false}}'
 	packet_peer.put_packet(command.to_ascii_buffer())
 	
 func send_command_light_on():
-	print(IPAdress, " light on")
+	#print(IPAdress, " light on")
 	var command = '{"id":1,"method":"setState","params":{"state":true}}'
 	packet_peer.put_packet(command.to_ascii_buffer())
 
@@ -78,8 +84,20 @@ func send_command_light_rgb(color : Color):
 
 func _on_color_update_cooldown_timeout() -> void:
 	var command = '{"method":"getPilot","params":{}}'
-	print(IPAdress, " Ask for state")
 	packet_peer.put_packet(command.to_ascii_buffer())
 	
 	if next_color:
 		send_command_light_rgb(next_color)
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	print("Received event!")
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			emit_signal("toggle_drag")
+		elif event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
+			emit_signal("toggle_drag")
+	elif event is InputEventScreenDrag:
+		pass
+
+func _on_toggle_drag() -> void:
+	is_dragging = !is_dragging

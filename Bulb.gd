@@ -2,10 +2,10 @@ extends CharacterBody2D
 
 @export var IPAdress : String = "192.168.0.47"
 var port : int = 38899
-@export var next_color : Color
+@export var next_color : Array[Color]
 
 var current_color : Color
-var light_on : bool
+var is_light_on : bool
 var packet_peer = PacketPeerUDP.new()
 
 var is_dragging : bool = false
@@ -21,9 +21,16 @@ func _process(delta: float) -> void:
 		var received_data = read_json_string(last_packet.get_string_from_ascii())
 		if received_data:
 			if received_data.method == "getPilot":
+				#print(received_data)
+				# Set current color
 				current_color = get_color(received_data.result)
 				$ColorPolygon.color = current_color
-	
+				
+				# Set current toggle
+				is_light_on = received_data.result.state
+				$ToggleLight.set_pressed_no_signal(is_light_on)
+				$ToggleLight.disabled = false
+				
 	if is_dragging:
 		self.position = get_viewport().get_mouse_position()
 
@@ -62,12 +69,12 @@ func send_command_get_state():
 	packet_peer.put_packet(command.to_ascii_buffer())
 
 func send_command_light_off():
-	#print(IPAdress, " light off")
+	print(IPAdress, " light off")
 	var command = '{"id":1,"method":"setState","params":{"state":false}}'
 	packet_peer.put_packet(command.to_ascii_buffer())
 	
 func send_command_light_on():
-	#print(IPAdress, " light on")
+	print(IPAdress, " light on")
 	var command = '{"id":1,"method":"setState","params":{"state":true}}'
 	packet_peer.put_packet(command.to_ascii_buffer())
 
@@ -83,11 +90,10 @@ func send_command_light_rgb(color : Color):
 
 
 func _on_color_update_cooldown_timeout() -> void:
-	var command = '{"method":"getPilot","params":{}}'
-	packet_peer.put_packet(command.to_ascii_buffer())
+	send_command_get_state()
 	
 	if next_color:
-		send_command_light_rgb(next_color)
+		send_command_light_rgb(next_color.pop_front())
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	print("Received event!")
@@ -101,3 +107,16 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 
 func _on_toggle_drag() -> void:
 	is_dragging = !is_dragging
+
+func _on_color_picker_button_color_changed(color: Color) -> void:
+	if next_color:
+		next_color = []
+	next_color.push_front(color)
+
+func _on_toggle_light_toggled(toggled_on: bool) -> void:
+	$ToggleLight.disabled = true
+	if is_light_on:
+		next_color = []
+		send_command_light_off()
+	else:
+		send_command_light_on()

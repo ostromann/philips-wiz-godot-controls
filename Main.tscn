@@ -54,6 +54,7 @@ influence_g = SubResource("FastNoiseLite_cximu")
 influence_b = SubResource("FastNoiseLite_8e4he")
 
 [node name="BackgroundColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
@@ -138,12 +139,14 @@ position = Vector2(632, 256)
 IPAdress = "192.168.0.46"
 
 [node name="QueuedColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 432.0
 offset_right = 616.0
 offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="QueuedColorRect"]
+visible = false
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 40.0
@@ -153,6 +156,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

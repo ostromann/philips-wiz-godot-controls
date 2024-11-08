@@ -43,7 +43,7 @@ func _process(delta: float):
 		new_color.b = (noisemap_b.get_noise_3d(x, y, z) + 1) / 2 * amplitude * influence_b_value
 		new_color.a = (noisemap_dimming.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queued_color.a
 		new_color.a = clamp(new_color.a, 0.99, 1.0)
-		bulb.next_color = new_color
+		bulb.next_color.push_front(new_color)
 
 
 

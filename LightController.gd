@@ -49,43 +49,28 @@ func _process(delta: float):
 		new_color.b = (noisemap_b.get_noise_3d(x, y, z) + 1) / 2 * amplitude * influence_b_value
 		new_color.a = (noisemap_dimming.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queued_color.a
 		new_color.a = clamp(new_color.a, 0.99, 1.0)
-		bulb.find_child("NextColorPolygon").color = new_color
-		
-	
-	
-	$PidList.clear()
-	for bulb in $Bulbs.get_children():
-		for process in bulb.find_child("Processes").get_children():
-			$PidList.add_item(str(process.pid))
+		bulb.next_color = new_color
 
 
 
 func set_color(color):
 	$BackgroundColorRect.color = color
 	for bulb in $Bulbs.get_children():
-		bulb.set_light_rgb(color)
+		bulb.send_command_light_rgb(color)
 	$ColorUpdateCooldown.start()
 	
 func _on_turn_on_button_pressed() -> void:
 	for bulb in $Bulbs.get_children():
-		bulb.set_light_on()
+		bulb.send_command_light_on()
 	
 func _on_turn_off_button_pressed() -> void:
 	for bulb in $Bulbs.get_children():
-		bulb.set_light_off()
+		bulb.send_command_light_off()
 
 func _on_color_picker_button_color_changed(color: Color) -> void:	
 	queued_color = color
 	$QueuedColorRect.color = color
-
-func _on_color_update_cooldown_timeout() -> void:
-	for bulb in $Bulbs.get_children():
-		bulb.set_light_rgb(bulb.find_child("NextColorPolygon").color)
 		
-	#if queued_color:
-		#set_color(queued_color)
-		
-
 
 func _on_speed_slider_drag_ended(value_changed: bool) -> void:
 	print("Setting speed to ", value_changed)

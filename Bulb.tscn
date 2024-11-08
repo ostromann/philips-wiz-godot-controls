@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhqkbmxenyp6a"]
+[gd_scene load_steps=4 format=3 uid="uid://dhqkbmxenyp6a"]
 
 [ext_resource type="Script" path="res://Bulb.gd" id="1_oyxeb"]
 [ext_resource type="Texture2D" uid="uid://ceutnx175nnnq" path="res://Assets/lighting-bulb.png" id="2_8hhnv"]
+[ext_resource type="Script" path="res://server_node.gd" id="3_6udyc"]
 
 [node name="Bulb" type="Node2D"]
 script = ExtResource("1_oyxeb")
@@ -17,3 +18,9 @@ polygon = PackedVector2Array(80, -80, 40, -80, -45, -30, -70, 55, -65, 115, -20,
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_8hhnv")
+
+[node name="ColorUpdateCooldown" type="Timer" parent="."]
+autostart = true
+script = ExtResource("3_6udyc")
+
+[connection signal="timeout" from="ColorUpdateCooldown" to="." method="_on_color_update_cooldown_timeout"]

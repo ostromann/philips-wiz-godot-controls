@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var IPAdress : String = "192.168.0.47"
 var port : int = 38899
 @export var next_color : Array[Color]
+@export var pulse_curve : Curve
 
 var current_color : Color
 var is_light_on : bool

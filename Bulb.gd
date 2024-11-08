@@ -8,6 +8,11 @@ var current_color : Color
 var is_light_on : bool
 var packet_peer = PacketPeerUDP.new()
 
+var pulse_color : Color
+var pulse_duration : float
+var pulse_timer : float
+var is_pulsing : bool = false
+
 var is_dragging : bool = false
 signal toggle_drag;
 
@@ -33,6 +38,10 @@ func _process(delta: float) -> void:
 				
 	if is_dragging:
 		self.position = get_viewport().get_mouse_position()
+	
+	if is_pulsing:
+		pulse_timer += delta
+	
 
 func _toggle_drag():
 	print("toggle dragging")
@@ -69,12 +78,12 @@ func send_command_get_state():
 	packet_peer.put_packet(command.to_ascii_buffer())
 
 func send_command_light_off():
-	print(IPAdress, " light off")
+	print(IPAdress, " -> light off")
 	var command = '{"id":1,"method":"setState","params":{"state":false}}'
 	packet_peer.put_packet(command.to_ascii_buffer())
 	
 func send_command_light_on():
-	print(IPAdress, " light on")
+	print(IPAdress, " -> light on")
 	var command = '{"id":1,"method":"setState","params":{"state":true}}'
 	packet_peer.put_packet(command.to_ascii_buffer())
 
@@ -120,3 +129,32 @@ func _on_toggle_light_toggled(toggled_on: bool) -> void:
 		send_command_light_off()
 	else:
 		send_command_light_on()
+
+func turn_off() -> void:
+	if is_light_on:
+		send_command_light_off()
+
+func turn_on() -> void:
+	if not is_light_on:
+		send_command_light_on()
+
+func pulse(color : Color, duration : float) -> void:
+	print(IPAdress, " Pulse!")
+	pulse_color = color
+	pulse_duration = duration
+	is_pulsing = true
+	update_pulse()
+
+func update_pulse() -> void:
+	send_command_light_rgb(pulse_color.darkened(pulse_timer/pulse_duration))
+	$PulseIntervalTimer.start()
+	
+
+func _on_pulse_interval_timer_timeout() -> void:
+	if is_pulsing:
+		if pulse_timer < pulse_duration:
+			update_pulse()
+		else:
+			pulse_timer = 0
+			is_pulsing = false
+			send_command_light_off()

@@ -1,12 +1,6 @@
 extends Node
 
-var queued_color: Color = Color.WHEAT
-var ips = [
-	"192.168.0.38", # kitchen 2
-	"192.168.0.41", # kitchen 1
-	"192.168.0.47", # bar 1
-	"192.168.0.48", # bar 2
-]
+var queued_color: Color = Color.WHITE
 
 @onready var BULB = preload("res://Bulb.tscn")
 

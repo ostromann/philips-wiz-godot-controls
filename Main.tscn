@@ -106,17 +106,12 @@ offset_top = 62.0
 offset_right = 665.0
 offset_bottom = 204.0
 
-[node name="PidList" type="ItemList" parent="."]
-layout_mode = 0
-offset_right = 172.0
-offset_bottom = 177.0
-
 [node name="ColorUpdateCooldown" type="Timer" parent="."]
 autostart = true
 
 [node name="Processes" type="Node" parent="."]
 
-[node name="Bulbs" type="Node" parent="."]
+[node name="Bulbs" type="Node2D" parent="."]
 
 [node name="Bar1" parent="Bulbs" instance=ExtResource("2_nkfvf")]
 position = Vector2(840, 96)

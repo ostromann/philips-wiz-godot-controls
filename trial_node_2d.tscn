@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://co8fxt2x370p1"]
+
+[ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://Bulb.tscn" id="1_71gmf"]
+
+[node name="Bulbs" type="Node2D"]
+
+[node name="Bar1" parent="." instance=ExtResource("1_71gmf")]
+position = Vector2(840, 96)
+
+[node name="Bar2" parent="." instance=ExtResource("1_71gmf")]
+position = Vector2(904, 112)
+IPAdress = "192.168.0.48"

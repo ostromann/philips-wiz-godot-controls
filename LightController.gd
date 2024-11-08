@@ -1,6 +1,6 @@
 extends Node
 
-var queuedColor: Color = Color.WHEAT
+var queued_color: Color = Color.WHEAT
 var ips = [
 	"192.168.0.38", # kitchen 2
 	"192.168.0.41", # kitchen 1
@@ -39,15 +39,15 @@ func _process(delta: float):
 		var y = bulb.position.y
 		var z = self.time
 		
-		var influence_r_value = (influence_r.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.r
-		var influence_g_value = (influence_g.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.g
-		var influence_b_value = (influence_b.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.b
+		var influence_r_value = (influence_r.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queued_color.r
+		var influence_g_value = (influence_g.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queued_color.g
+		var influence_b_value = (influence_b.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queued_color.b
 		
 		
 		new_color.r = (noisemap_r.get_noise_3d(x, y, z) + 1) / 2 * amplitude * influence_r_value
 		new_color.g = (noisemap_g.get_noise_3d(x, y, z) + 1) / 2 * amplitude * influence_g_value
 		new_color.b = (noisemap_b.get_noise_3d(x, y, z) + 1) / 2 * amplitude * influence_b_value
-		new_color.a = (noisemap_dimming.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queuedColor.a
+		new_color.a = (noisemap_dimming.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queued_color.a
 		new_color.a = clamp(new_color.a, 0.99, 1.0)
 		bulb.find_child("NextColorPolygon").color = new_color
 		
@@ -75,15 +75,15 @@ func _on_turn_off_button_pressed() -> void:
 		bulb.set_light_off()
 
 func _on_color_picker_button_color_changed(color: Color) -> void:	
-	queuedColor = color
+	queued_color = color
 	$QueuedColorRect.color = color
 
 func _on_color_update_cooldown_timeout() -> void:
 	for bulb in $Bulbs.get_children():
 		bulb.set_light_rgb(bulb.find_child("NextColorPolygon").color)
 		
-	#if queuedColor:
-		#set_color(queuedColor)
+	#if queued_color:
+		#set_color(queued_color)
 		
 
 

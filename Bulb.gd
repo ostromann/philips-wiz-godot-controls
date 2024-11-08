@@ -2,22 +2,22 @@ extends Node
 
 @export var IPAdress : String = "192.168.0.47"
 
-var packetPeer = PacketPeerUDP.new()
+var packet_peer = PacketPeerUDP.new()
 
 func _ready() -> void:
-	packetPeer.connect_to_host(IPAdress, 38899)
+	packet_peer.connect_to_host(IPAdress, 38899)
 	set_light_off()
 
 func set_light_off():
 	print(IPAdress, " light off")
 	var command = '{"id":1,"method":"setState","params":{"state":false}}'
-	packetPeer.put_packet(command.to_ascii_buffer())
+	packet_peer.put_packet(command.to_ascii_buffer())
 	$ColorPolygon.color = Color.BLACK
 	
 func set_light_on():
 	print(IPAdress, " light on")
 	var command = '{"id":1,"method":"setState","params":{"state":true}}'
-	packetPeer.put_packet(command.to_ascii_buffer())
+	packet_peer.put_packet(command.to_ascii_buffer())
 	$ColorPolygon.color = Color.WHITE
 
 func set_light_rgb(color : Color):
@@ -27,5 +27,5 @@ func set_light_rgb(color : Color):
 	var blue = clamp(color.b * 255, 0, 255)
 	
 	var command = '{"id":1,"method":"setPilot","params":{"r":%d,"g":%d,"b":%d,"dimming":%d}}' % [red, green, blue, dimming]
-	packetPeer.put_packet(command.to_ascii_buffer())
+	packet_peer.put_packet(command.to_ascii_buffer())
 	$ColorPolygon.color = color

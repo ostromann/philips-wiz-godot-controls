@@ -1,27 +1,23 @@
 extends Node
 
 @export var IPAdress : String = "192.168.0.47"
-@onready var AUTO_KILL_PROCESS = preload("res://AutoKillProcess.tscn")
 
-func _process(delta: float) -> void:
-	if $Processes.get_child_count() > 0:
-		$ProcessCount.text = str($Processes.get_child_count())
-	else:
-		$ProcessCount.text = "..."
-	
+var packetPeer = PacketPeerUDP.new()
 
-func create_auto_kill_process(command, arguments):
-	var pid = OS.create_process(command, arguments)
-	var process = AUTO_KILL_PROCESS.instantiate()
-	process.pid = pid
-	$Processes.add_child(process)
+func _ready() -> void:
+	packetPeer.connect_to_host(IPAdress, 38899)
+	set_light_off()
 
 func set_light_off():
-	create_auto_kill_process('send_light_off_command.bat', [IPAdress])
+	print(IPAdress, " light off")
+	var command = '{"id":1,"method":"setState","params":{"state":false}}'
+	packetPeer.put_packet(command.to_ascii_buffer())
 	$ColorPolygon.color = Color.BLACK
 	
 func set_light_on():
-	create_auto_kill_process('send_light_on_command.bat', [IPAdress])
+	print(IPAdress, " light on")
+	var command = '{"id":1,"method":"setState","params":{"state":true}}'
+	packetPeer.put_packet(command.to_ascii_buffer())
 	$ColorPolygon.color = Color.WHITE
 
 func set_light_rgb(color : Color):
@@ -30,5 +26,6 @@ func set_light_rgb(color : Color):
 	var green = clamp(color.g * 255, 0, 255)
 	var blue = clamp(color.b * 255, 0, 255)
 	
-	create_auto_kill_process('send_light_command.bat', [red, green, blue, dimming, IPAdress])
+	var command = '{"id":1,"method":"setPilot","params":{"r":%d,"g":%d,"b":%d,"dimming":%d}}' % [red, green, blue, dimming]
+	packetPeer.put_packet(command.to_ascii_buffer())
 	$ColorPolygon.color = color

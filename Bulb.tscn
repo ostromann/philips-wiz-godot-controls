@@ -17,13 +17,3 @@ polygon = PackedVector2Array(80, -80, 40, -80, -45, -30, -70, 55, -65, 115, -20,
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_8hhnv")
-
-[node name="Processes" type="Node" parent="."]
-
-[node name="ProcessCount" type="Label" parent="."]
-offset_left = -18.0
-offset_top = -23.0
-offset_right = 22.0
-text = "..."
-horizontal_alignment = 1
-vertical_alignment = 1

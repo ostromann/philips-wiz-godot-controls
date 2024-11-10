@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://5pidasgrqjk7"]
+
+[ext_resource type="PackedScene" uid="uid://sejkxcp47cbl" path="res://Draggable.tscn" id="1_ldl6d"]
+[ext_resource type="Script" path="res://bulbs/bulb_template.gd" id="2_oqxy2"]
+
+[node name="BulbTemplate" instance=ExtResource("1_ldl6d")]
+script = ExtResource("2_oqxy2")
+update_frequency = 0.0
+
+[node name="UpdateTimer" type="Timer" parent="." index="1"]
+one_shot = true
+autostart = true
+
+[node name="NextColorPolygon" type="Polygon2D" parent="." index="2"]
+polygon = PackedVector2Array(0, -55, -20, -51, -39, -31, -39, -10, -32, 12, -20, 31, -16, 54, 2, 57, 15, 53, 19, 34, 28, 11, 34, -3, 39, -15, 35, -37, 16, -53, -1, -56)
+
+[node name="CurrentColorPolygon" type="Polygon2D" parent="." index="3"]
+position = Vector2(-16, -32)
+scale = Vector2(0.2, 0.2)
+polygon = PackedVector2Array(-90, 55, -80, 10, -40, -45, 10, -80, 80, -95, 155, -80, 205, -40, 240, 20, 250, 65, 240, 130, 225, 165, 190, 210, 155, 265, 0, 265, -35, 205, -65, 165, -85, 120)
+
+[node name="ToggleLightButton" type="CheckButton" parent="." index="4"]
+offset_left = -21.0
+offset_top = 65.0
+offset_right = 23.0
+offset_bottom = 89.0
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="." index="5"]
+offset_left = -21.0
+offset_top = 35.0
+offset_right = 21.0
+offset_bottom = 65.0
+
+[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
+[connection signal="toggled" from="ToggleLightButton" to="." method="_on_toggle_light_button_toggled"]
+[connection signal="color_changed" from="ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]

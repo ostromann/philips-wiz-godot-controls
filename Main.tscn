@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b77pr8rkaljg0"]
 
 [ext_resource type="Script" path="res://LightController.gd" id="1_yuxyr"]
-[ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://BulbOld.tscn" id="2_nkfvf"]
+[ext_resource type="PackedScene" uid="uid://djrxtiau067vb" path="res://bulbs/bulb_wiz.tscn" id="2_7rw06"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_c2yn6"]
 noise_type = 3
@@ -111,31 +111,31 @@ autostart = true
 
 [node name="Bulbs" type="Node2D" parent="."]
 
-[node name="Bar1" parent="Bulbs" instance=ExtResource("2_nkfvf")]
-position = Vector2(840, 96)
+[node name="WizBar1" parent="Bulbs" instance=ExtResource("2_7rw06")]
+position = Vector2(704, 192)
 
-[node name="Bar2" parent="Bulbs" instance=ExtResource("2_nkfvf")]
-position = Vector2(904, 112)
+[node name="WizBar2" parent="Bulbs" instance=ExtResource("2_7rw06")]
+position = Vector2(896, 144)
 IPAdress = "192.168.0.48"
 
-[node name="ÖkensandBottom" parent="Bulbs" instance=ExtResource("2_nkfvf")]
-position = Vector2(680, 448)
+[node name="WizÖkensand1" parent="Bulbs" instance=ExtResource("2_7rw06")]
+position = Vector2(904, 432)
 IPAdress = "192.168.0.40"
 
-[node name="ÖkensandMiddle" parent="Bulbs" instance=ExtResource("2_nkfvf")]
-position = Vector2(816, 400)
+[node name="WizÖkensand2" parent="Bulbs" instance=ExtResource("2_7rw06")]
+position = Vector2(736, 448)
 IPAdress = "192.168.0.39"
 
-[node name="ÖkensandTop" parent="Bulbs" instance=ExtResource("2_nkfvf")]
-position = Vector2(904, 336)
+[node name="WizÖkensand3" parent="Bulbs" instance=ExtResource("2_7rw06")]
+position = Vector2(776, 496)
 IPAdress = "192.168.0.37"
 
-[node name="Window1" parent="Bulbs" instance=ExtResource("2_nkfvf")]
-position = Vector2(720, 176)
+[node name="WizWindow1" parent="Bulbs" instance=ExtResource("2_7rw06")]
+position = Vector2(240, 120)
 IPAdress = "192.168.0.45"
 
-[node name="Window2" parent="Bulbs" instance=ExtResource("2_nkfvf")]
-position = Vector2(632, 256)
+[node name="WizWindow2" parent="Bulbs" instance=ExtResource("2_7rw06")]
+position = Vector2(240, 464)
 IPAdress = "192.168.0.46"
 
 [node name="QueuedColorRect" type="ColorRect" parent="."]
@@ -174,4 +174,4 @@ value = 0.2
 [connection signal="pressed" from="TurnOnButton" to="." method="_on_turn_on_button_pressed"]
 [connection signal="pressed" from="TurnOffButton" to="." method="_on_turn_off_button_pressed"]
 [connection signal="color_changed" from="ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
-[connection signal="drag_ended" from="SpeedSlider" to="." method="_on_speed_slider_drag_ended"]
+[connection signal="value_changed" from="SpeedSlider" to="." method="_on_speed_slider_value_changed"]

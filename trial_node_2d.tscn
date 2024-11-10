@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://co8fxt2x370p1"]
 
-[ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://BulbOld.tscn" id="1_71gmf"]
 [ext_resource type="Script" path="res://trial_node_2d.gd" id="1_owj1g"]
-[ext_resource type="Texture2D" uid="uid://k0ijvxwtyn6o" path="res://Assets/bar_round_small.png" id="2_svkcq"]
+[ext_resource type="Texture2D" uid="uid://k0ijvxwtyn6o" path="res://assets/bar_round_small.png" id="2_svkcq"]
+[ext_resource type="PackedScene" uid="uid://djrxtiau067vb" path="res://bulbs/bulb_wiz.tscn" id="3_4grwy"]
 
 [sub_resource type="Animation" id="Animation_p6spw"]
 length = 0.001
@@ -63,20 +63,10 @@ speed_scale = 0.33
 
 [node name="Bulbs" type="Node2D" parent="."]
 
-[node name="Bar1" parent="Bulbs" instance=ExtResource("1_71gmf")]
-position = Vector2(736, 200)
+[node name="Bar1" parent="Bulbs" instance=ExtResource("3_4grwy")]
 
-[node name="Bar2" parent="Bulbs" instance=ExtResource("1_71gmf")]
-position = Vector2(1032, 168)
-
-[node name="ÖkensandBottom" parent="Bulbs" instance=ExtResource("1_71gmf")]
-position = Vector2(848, 72)
-
-[node name="ÖkensandMiddle" parent="Bulbs" instance=ExtResource("1_71gmf")]
-position = Vector2(1016, 320)
-
-[node name="ÖkensandTop" parent="Bulbs" instance=ExtResource("1_71gmf")]
-position = Vector2(760, 352)
+[node name="Bar2" parent="Bulbs" instance=ExtResource("3_4grwy")]
+IPAdress = "192.168.0.48"
 
 [node name="Label" type="Label" parent="."]
 offset_left = 656.0

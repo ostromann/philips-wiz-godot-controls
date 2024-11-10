@@ -2,8 +2,6 @@ extends Node
 
 var queued_color: Color = Color.WHITE
 
-@onready var BULB = preload("res://Bulb.tscn")
-
 @export var amplitude : float = 1.0
 @export var speed : float = 0.2
 @export var noisemap_dimming : FastNoiseLite
@@ -23,7 +21,7 @@ func _ready():
 	pass
 
 # Example: you can trigger these functions from UI buttons or other events
-func _process(delta: float):
+func _process(_delta: float):
 	self.time += self.speed
 
 		
@@ -43,29 +41,23 @@ func _process(delta: float):
 		new_color.b = (noisemap_b.get_noise_3d(x, y, z) + 1) / 2 * amplitude * influence_b_value
 		new_color.a = (noisemap_dimming.get_noise_3d(x, y, z) + 1) / 2 * amplitude * queued_color.a
 		new_color.a = clamp(new_color.a, 0.99, 1.0)
-		bulb.next_color.push_front(new_color)
+		bulb.set_color(new_color)
 
 
 
-func set_color(color):
-	$BackgroundColorRect.color = color
-	for bulb in $Bulbs.get_children():
-		bulb.send_command_light_rgb(color)
-	$ColorUpdateCooldown.start()
 	
 func _on_turn_on_button_pressed() -> void:
 	for bulb in $Bulbs.get_children():
-		bulb.send_command_light_on()
+		bulb.turn_on()
 	
 func _on_turn_off_button_pressed() -> void:
 	for bulb in $Bulbs.get_children():
-		bulb.send_command_light_off()
+		bulb.turn_off()
 
 func _on_color_picker_button_color_changed(color: Color) -> void:	
 	queued_color = color
 	$QueuedColorRect.color = color
 		
 
-func _on_speed_slider_drag_ended(value_changed: bool) -> void:
-	print("Setting speed to ", value_changed)
-	speed = value_changed
+func _on_speed_slider_value_changed(value: float) -> void:
+	speed = value

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://djrxtiau067vb"]
+
+[ext_resource type="PackedScene" uid="uid://5pidasgrqjk7" path="res://bulbs/bulb_template.tscn" id="1_ecjd1"]
+[ext_resource type="Script" path="res://bulbs/bulb_wiz.gd" id="2_0ck0r"]
+
+[node name="BulbWiz" instance=ExtResource("1_ecjd1")]
+script = ExtResource("2_0ck0r")
+IPAdress = "192.168.0.47"
+
+[node name="UpdateTimer" parent="." index="1"]
+wait_time = 0.5
+
+[node name="GetStateTimer" type="Timer" parent="." index="4"]
+wait_time = 0.25
+autostart = true
+
+[connection signal="timeout" from="GetStateTimer" to="." method="_on_get_state_timer_timeout"]

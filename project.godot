@@ -13,7 +13,6 @@ config_version=5
 config/name="PhilipsWizController"
 run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
-config/icon="res://icon.svg"
 
 [rendering]
 

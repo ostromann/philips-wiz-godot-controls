@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b77pr8rkaljg0"]
 
 [ext_resource type="Script" path="res://LightController.gd" id="1_yuxyr"]
-[ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://Bulb.tscn" id="2_nkfvf"]
+[ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://BulbOld.tscn" id="2_nkfvf"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_c2yn6"]
 noise_type = 3

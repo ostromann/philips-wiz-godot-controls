@@ -1,8 +1,23 @@
 [gd_scene load_steps=7 format=3 uid="uid://co8fxt2x370p1"]
 
-[ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://Bulb.tscn" id="1_71gmf"]
+[ext_resource type="PackedScene" uid="uid://dhqkbmxenyp6a" path="res://BulbOld.tscn" id="1_71gmf"]
 [ext_resource type="Script" path="res://trial_node_2d.gd" id="1_owj1g"]
 [ext_resource type="Texture2D" uid="uid://k0ijvxwtyn6o" path="res://Assets/bar_round_small.png" id="2_svkcq"]
+
+[sub_resource type="Animation" id="Animation_p6spw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_y35km"]
 resource_name = "new_animation"
@@ -18,21 +33,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 3.14159, 6.26573]
-}
-
-[sub_resource type="Animation" id="Animation_p6spw"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_te7m7"]
@@ -68,19 +68,15 @@ position = Vector2(736, 200)
 
 [node name="Bar2" parent="Bulbs" instance=ExtResource("1_71gmf")]
 position = Vector2(1032, 168)
-IPAdress = "192.168.0.48"
 
 [node name="ÖkensandBottom" parent="Bulbs" instance=ExtResource("1_71gmf")]
 position = Vector2(848, 72)
-IPAdress = "192.168.0.40"
 
 [node name="ÖkensandMiddle" parent="Bulbs" instance=ExtResource("1_71gmf")]
 position = Vector2(1016, 320)
-IPAdress = "192.168.0.39"
 
 [node name="ÖkensandTop" parent="Bulbs" instance=ExtResource("1_71gmf")]
 position = Vector2(760, 352)
-IPAdress = "192.168.0.37"
 
 [node name="Label" type="Label" parent="."]
 offset_left = 656.0

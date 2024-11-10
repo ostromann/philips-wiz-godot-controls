@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://sejkxcp47cbl"]
+
+[ext_resource type="Script" path="res://draggable.gd" id="1_b81kb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ce7qd"]
+radius = 34.0
+height = 102.0
+
+[node name="Draggable" type="CharacterBody2D"]
+input_pickable = true
+motion_mode = 1
+script = ExtResource("1_b81kb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ce7qd")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="toggle_drag" from="." to="." method="_on_toggle_drag"]

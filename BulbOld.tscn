@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhqkbmxenyp6a"]
+[gd_scene load_steps=4 format=3 uid="uid://dhqkbmxenyp6a"]
 
-[ext_resource type="Script" path="res://Bulb.gd" id="1_oyxeb"]
+[ext_resource type="Script" path="res://wiz_light.gd" id="2_1v2uu"]
 [ext_resource type="Texture2D" uid="uid://ceutnx175nnnq" path="res://Assets/lighting-bulb.png" id="2_8hhnv"]
 
-[sub_resource type="GDScript" id="GDScript_jw573"]
+[sub_resource type="GDScript" id="GDScript_vasup"]
 script/source = "# server_node.gd
 class_name ServerNode
 extends Node
@@ -30,14 +30,16 @@ func _process(delta):
 		pass # Do something with the connected peers.
 "
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ce7qd"]
-radius = 34.0
-height = 102.0
+[node name="WizLight" type="Node2D"]
+script = ExtResource("2_1v2uu")
 
-[node name="Bulb" type="CharacterBody2D"]
-input_pickable = true
-motion_mode = 1
-script = ExtResource("1_oyxeb")
+[node name="PulseIntervalTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="ColorUpdateCooldown" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+script = SubResource("GDScript_vasup")
 
 [node name="NextColorPolygon" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(0, -55, -20, -51, -39, -31, -39, -10, -32, 12, -20, 31, -16, 54, 2, 57, 15, 53, 19, 34, 28, 11, 34, -3, 39, -15, 35, -37, 16, -53, -1, -56)
@@ -48,24 +50,8 @@ scale = Vector2(0.2, 0.2)
 polygon = PackedVector2Array(-90, 55, -80, 10, -40, -45, 10, -80, 80, -95, 155, -80, 205, -40, 240, 20, 250, 65, 240, 130, 225, 165, 190, 210, 155, 265, 0, 265, -35, 205, -65, 165, -85, 120)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_8hhnv")
-
-[node name="ColorUpdateCooldown" type="Timer" parent="."]
-wait_time = 0.25
-autostart = true
-script = SubResource("GDScript_jw573")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("CapsuleShape2D_ce7qd")
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
-offset_left = -21.0
-offset_top = 35.0
-offset_right = 21.0
-offset_bottom = 65.0
 
 [node name="ToggleLight" type="CheckButton" parent="."]
 offset_left = -21.0
@@ -73,12 +59,8 @@ offset_top = 65.0
 offset_right = 23.0
 offset_bottom = 89.0
 
-[node name="PulseIntervalTimer" type="Timer" parent="."]
-wait_time = 0.2
-
-[connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="toggle_drag" from="." to="." method="_on_toggle_drag"]
-[connection signal="timeout" from="ColorUpdateCooldown" to="." method="_on_color_update_cooldown_timeout"]
-[connection signal="color_changed" from="ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
-[connection signal="toggled" from="ToggleLight" to="." method="_on_toggle_light_toggled"]
-[connection signal="timeout" from="PulseIntervalTimer" to="." method="_on_pulse_interval_timer_timeout"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+offset_left = -21.0
+offset_top = 35.0
+offset_right = 21.0
+offset_bottom = 65.0

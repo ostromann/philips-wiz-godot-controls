@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://radial_gradient_light_source.gd" id="2_r6yut"]
 
 [sub_resource type="Gradient" id="Gradient_iojo6"]
-offsets = PackedFloat32Array(0, 0.0584615, 0.283077, 0.596923, 0.910769, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.815686, 0.513726, 0.101961, 1, 0.679061, 0.165243, 0.623824, 1, 0.164901, 1.12626e-05, 0.683983, 1, 0.0196078, 0.858824, 0.0941176, 1, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0.126154, 0.596923, 0.910769, 1)
+colors = PackedColorArray(0, 0.75, 0.725, 1, 0.634667, 0, 0.68, 0.686275, 0.96, 0.5472, 0.83616, 0.643137, 0, 0, 0, 0)
 
 [sub_resource type="Gradient" id="Gradient_l8l17"]
 

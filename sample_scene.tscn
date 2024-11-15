@@ -1,13 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://31c5c1hciqh4"]
+[gd_scene load_steps=4 format=3 uid="uid://31c5c1hciqh4"]
 
 [ext_resource type="PackedScene" uid="uid://djrxtiau067vb" path="res://bulbs/bulb_wiz.tscn" id="1_j82i4"]
 [ext_resource type="PackedScene" uid="uid://cj06xev55yamj" path="res://light_sources/radial_gradient_light_source.tscn" id="2_edgjh"]
+
+[sub_resource type="Gradient" id="Gradient_mn7b1"]
+offsets = PackedFloat32Array(0.116923, 0.587692, 0.913846, 1)
+colors = PackedColorArray(0.78, 0.5928, 0.64896, 0.427451, 0.5336, 0.92, 0.80408, 0.6, 0.1312, 0.41, 0.372827, 0.423529, 0, 0, 0, 0)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="LightSources" type="Node2D" parent="."]
 
 [node name="RadialGradientLightSource" parent="LightSources" instance=ExtResource("2_edgjh")]
+position = Vector2(312, 320)
+
+[node name="RadialGradientLightSource2" parent="LightSources" instance=ExtResource("2_edgjh")]
+position = Vector2(944, 544)
+gradient = SubResource("Gradient_mn7b1")
 
 [node name="Bulbs" type="Node2D" parent="."]
 

@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b77pr8rkaljg0"]
+[gd_scene load_steps=5 format=3 uid="uid://bfgi0len57yxm"]
 
-[ext_resource type="Script" path="res://LightController.gd" id="1_yuxyr"]
-[ext_resource type="PackedScene" uid="uid://djrxtiau067vb" path="res://bulbs/bulb_wiz.tscn" id="2_7rw06"]
-[ext_resource type="PackedScene" uid="uid://gxv0ntdm1jfn" path="res://light_sources/constant_light_source.tscn" id="3_r64ep"]
+[ext_resource type="Script" path="res://LightController.gd" id="1_4tnuc"]
+[ext_resource type="PackedScene" uid="uid://djrxtiau067vb" path="res://bulbs/bulb_wiz.tscn" id="2_tu1jj"]
+[ext_resource type="PackedScene" uid="uid://gxv0ntdm1jfn" path="res://light_sources/constant_light_source.tscn" id="3_glagj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pj626"]
 font_size = 22
@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_yuxyr")
+script = ExtResource("1_4tnuc")
 
 [node name="BackgroundColorRect" type="ColorRect" parent="."]
 visible = false
@@ -78,27 +78,31 @@ autostart = true
 
 [node name="Bulbs" type="Node2D" parent="."]
 
-[node name="WizBar1" parent="Bulbs" instance=ExtResource("2_7rw06")]
+[node name="WizBar1" parent="Bulbs" instance=ExtResource("2_tu1jj")]
 position = Vector2(704, 192)
-collision_layer = 1
-collision_mask = 1
 
-[node name="WizBar2" parent="Bulbs" instance=ExtResource("2_7rw06")]
+[node name="WizBar2" parent="Bulbs" instance=ExtResource("2_tu1jj")]
 position = Vector2(896, 144)
-collision_layer = 1
-collision_mask = 1
 IPAdress = "192.168.0.48"
 
-[node name="WizWindow1" parent="Bulbs" instance=ExtResource("2_7rw06")]
+[node name="WizÖkensand1" parent="Bulbs" instance=ExtResource("2_tu1jj")]
+position = Vector2(904, 432)
+IPAdress = "192.168.0.40"
+
+[node name="WizÖkensand2" parent="Bulbs" instance=ExtResource("2_tu1jj")]
+position = Vector2(736, 448)
+IPAdress = "192.168.0.39"
+
+[node name="WizÖkensand3" parent="Bulbs" instance=ExtResource("2_tu1jj")]
+position = Vector2(776, 496)
+IPAdress = "192.168.0.37"
+
+[node name="WizWindow1" parent="Bulbs" instance=ExtResource("2_tu1jj")]
 position = Vector2(240, 120)
-collision_layer = 1
-collision_mask = 1
 IPAdress = "192.168.0.45"
 
-[node name="WizWindow2" parent="Bulbs" instance=ExtResource("2_7rw06")]
+[node name="WizWindow2" parent="Bulbs" instance=ExtResource("2_tu1jj")]
 position = Vector2(240, 464)
-collision_layer = 1
-collision_mask = 1
 IPAdress = "192.168.0.46"
 
 [node name="QueuedColorRect" type="ColorRect" parent="."]
@@ -136,10 +140,7 @@ value = 0.2
 
 [node name="LightSources" type="Node2D" parent="."]
 
-[node name="ConstantLightSource" parent="LightSources" instance=ExtResource("3_r64ep")]
-collision_layer = 1
-collision_mask = 1
-source_color = Color(1, 1, 1, 1)
+[node name="ConstantLightSource" parent="LightSources" instance=ExtResource("3_glagj")]
 
 [connection signal="pressed" from="TurnOnButton" to="." method="_on_turn_on_button_pressed"]
 [connection signal="pressed" from="TurnOffButton" to="." method="_on_turn_off_button_pressed"]

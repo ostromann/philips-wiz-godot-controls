@@ -64,8 +64,12 @@ speed_scale = 0.33
 [node name="Bulbs" type="Node2D" parent="."]
 
 [node name="Bar1" parent="Bulbs" instance=ExtResource("3_4grwy")]
+collision_layer = 1
+collision_mask = 1
 
 [node name="Bar2" parent="Bulbs" instance=ExtResource("3_4grwy")]
+collision_layer = 1
+collision_mask = 1
 IPAdress = "192.168.0.48"
 
 [node name="Label" type="Label" parent="."]

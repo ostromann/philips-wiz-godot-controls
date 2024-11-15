@@ -3,10 +3,11 @@
 [ext_resource type="Script" path="res://draggable.gd" id="1_b81kb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ce7qd"]
-radius = 34.0
-height = 102.0
+radius = 36.0
+height = 126.0
 
 [node name="Draggable" type="CharacterBody2D"]
+collision_mask = 0
 input_pickable = true
 motion_mode = 1
 script = ExtResource("1_b81kb")

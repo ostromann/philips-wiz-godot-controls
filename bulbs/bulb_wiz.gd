@@ -8,8 +8,8 @@ var packet_peer = PacketPeerUDP.new()
 func _ready() -> void:
 	packet_peer.connect_to_host(IPAdress, port)
 
-func _process(_delta):
-	super._process(_delta)
+func _process(delta):
+	super._process(delta)
 	
 	new_state_data = packet_peer.get_packet()
 	if len(new_state_data) > 0:
@@ -72,10 +72,12 @@ func get_state():
 
 func turn_off() -> void:
 	var command = '{"id":1,"method":"setState","params":{"state":false}}'
+	print(IPAdress, " Turn off ", command)
 	packet_peer.put_packet(command.to_ascii_buffer())
 
 func turn_on() -> void:
 	var command = '{"id":1,"method":"setState","params":{"state":true}}'
+	print(IPAdress, " Turn on ", command)
 	packet_peer.put_packet(command.to_ascii_buffer())
 
 func _set_color(color : Color) -> void:
@@ -85,6 +87,7 @@ func _set_color(color : Color) -> void:
 	var blue = int(clamp(color.b * 255, 0, 255))
 	
 	var command = '{"id":1,"method":"setPilot","params":{"r":%d,"g":%d,"b":%d,"dimming":%d}}' % [red, green, blue, dimming]
+	print(IPAdress, " setRGB ", command)
 	packet_peer.put_packet(command.to_ascii_buffer())
 
 func _on_get_state_timer_timeout() -> void:

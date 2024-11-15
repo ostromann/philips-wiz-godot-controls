@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://31c5c1hciqh4"]
+
+[ext_resource type="PackedScene" uid="uid://djrxtiau067vb" path="res://bulbs/bulb_wiz.tscn" id="1_j82i4"]
+[ext_resource type="PackedScene" uid="uid://gxv0ntdm1jfn" path="res://light_sources/constant_light_source.tscn" id="2_v4r62"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Bulbs" type="Node2D" parent="."]
+
+[node name="WizBar1" parent="Bulbs" instance=ExtResource("1_j82i4")]
+position = Vector2(704, 192)
+
+[node name="WizBar2" parent="Bulbs" instance=ExtResource("1_j82i4")]
+position = Vector2(896, 144)
+IPAdress = "192.168.0.48"
+
+[node name="WizWindow1" parent="Bulbs" instance=ExtResource("1_j82i4")]
+position = Vector2(240, 120)
+IPAdress = "192.168.0.45"
+
+[node name="WizWindow2" parent="Bulbs" instance=ExtResource("1_j82i4")]
+position = Vector2(240, 464)
+IPAdress = "192.168.0.46"
+
+[node name="LightSources" type="Node2D" parent="."]
+
+[node name="ConstantLightSource" parent="LightSources" instance=ExtResource("2_v4r62")]

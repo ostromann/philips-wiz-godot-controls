@@ -3,8 +3,6 @@ extends CharacterBody2D
 var is_dragging : bool = false
 signal toggle_drag;
 
-func _ready() -> void:
-	connect("toggle_drag", _on_toggle_drag)
 
 func _process(_delta: float) -> void:
 	_process_draggable(_delta)

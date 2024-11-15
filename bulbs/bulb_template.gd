@@ -12,8 +12,8 @@ var new_state_data
 func _ready() -> void:
 	pass
 
-func _process(_delta) -> void:
-	super._process(_delta)
+func _process(delta) -> void:
+	super._process(delta)
 	
 	if has_new_state:
 		_update_state(new_state_data)

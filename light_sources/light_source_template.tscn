@@ -1,9 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://utiplh8nu81y"]
+[gd_scene load_steps=4 format=3 uid="uid://utiplh8nu81y"]
 
 [ext_resource type="PackedScene" uid="uid://sejkxcp47cbl" path="res://Draggable.tscn" id="1_n23ij"]
 [ext_resource type="Script" path="res://light_sources/light_source_template.gd" id="2_4x2ja"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3xyto"]
+radius = 270.118
 
 [node name="LightSourceTemplate" instance=ExtResource("1_n23ij")]
 collision_layer = 5
 script = ExtResource("2_4x2ja")
 is_emitting = false
+
+[node name="Area2D" type="Area2D" parent="." index="1"]
+collision_layer = 5
+collision_mask = 2
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_3xyto")

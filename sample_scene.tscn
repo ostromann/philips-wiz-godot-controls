@@ -1,9 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://31c5c1hciqh4"]
 
 [ext_resource type="PackedScene" uid="uid://djrxtiau067vb" path="res://bulbs/bulb_wiz.tscn" id="1_j82i4"]
-[ext_resource type="PackedScene" uid="uid://gxv0ntdm1jfn" path="res://light_sources/constant_light_source.tscn" id="2_v4r62"]
+[ext_resource type="PackedScene" uid="uid://cj06xev55yamj" path="res://light_sources/radial_gradient_light_source.tscn" id="2_edgjh"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="LightSources" type="Node2D" parent="."]
+
+[node name="RadialGradientLightSource" parent="LightSources" instance=ExtResource("2_edgjh")]
 
 [node name="Bulbs" type="Node2D" parent="."]
 
@@ -21,16 +25,3 @@ IPAdress = "192.168.0.45"
 [node name="WizWindow2" parent="Bulbs" instance=ExtResource("1_j82i4")]
 position = Vector2(240, 464)
 IPAdress = "192.168.0.46"
-
-[node name="LightSources" type="Node2D" parent="."]
-
-[node name="ConstantLightSource2" parent="LightSources" instance=ExtResource("2_v4r62")]
-position = Vector2(896, 480)
-source_color = Color(1, 0, 0, 1)
-
-[node name="ConstantLightSource" parent="LightSources" instance=ExtResource("2_v4r62")]
-source_color = Color(0, 1, 0, 1)
-
-[node name="ConstantLightSource3" parent="LightSources" instance=ExtResource("2_v4r62")]
-position = Vector2(1056, 0)
-source_color = Color(0, 0, 1, 1)

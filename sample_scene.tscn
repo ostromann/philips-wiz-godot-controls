@@ -24,4 +24,13 @@ IPAdress = "192.168.0.46"
 
 [node name="LightSources" type="Node2D" parent="."]
 
+[node name="ConstantLightSource2" parent="LightSources" instance=ExtResource("2_v4r62")]
+position = Vector2(896, 480)
+source_color = Color(1, 0, 0, 1)
+
 [node name="ConstantLightSource" parent="LightSources" instance=ExtResource("2_v4r62")]
+source_color = Color(0, 1, 0, 1)
+
+[node name="ConstantLightSource3" parent="LightSources" instance=ExtResource("2_v4r62")]
+position = Vector2(1056, 0)
+source_color = Color(0, 0, 1, 1)

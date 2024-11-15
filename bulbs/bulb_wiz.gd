@@ -9,10 +9,7 @@ func _ready() -> void:
 	packet_peer.connect_to_host(IPAdress, port)
 
 func _process(_delta):
-	_process_wiz(_delta)
-	
-func _process_wiz(_delta):
-	_process_bulb_template(_delta)
+	super._process(_delta)
 	
 	new_state_data = packet_peer.get_packet()
 	if len(new_state_data) > 0:

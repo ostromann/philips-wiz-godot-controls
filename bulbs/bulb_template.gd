@@ -13,10 +13,7 @@ func _ready() -> void:
 	pass
 
 func _process(_delta) -> void:
-	_process_bulb_template(_delta)
-	
-func _process_bulb_template(_delta) -> void:
-	_process_draggable(_delta)
+	super._process(_delta)
 	
 	if has_new_state:
 		_update_state(new_state_data)
